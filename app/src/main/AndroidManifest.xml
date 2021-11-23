@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SYM_LABO3">
         <activity
+            android:name=".NFCActivity"
+            android:exported="true" />
+        <activity
+            android:name=".IBeaconActivity"
+            android:exported="true" />
+        <activity
+            android:name=".QRCodeActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
