@@ -12,15 +12,16 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.journeyapps.barcodescanner.BarcodeView
+        <com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/qrcode_barcode_viewer"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_margin="10dp">
 
-        </com.journeyapps.barcodescanner.BarcodeView>
+        </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/qrcode_img_preview"
             android:layout_width="250dp"
             android:layout_height="250dp"
             tools:srcCompat="@tools:sample/avatars"
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/qrcode_text_decoded"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
