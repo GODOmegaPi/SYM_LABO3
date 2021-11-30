@@ -11,4 +11,10 @@
     <string name="beacon_uuid">UUID</string>
     <string name="beacon_major_minor">Major Minor</string>
     <string name="beacon_rssi">RSSI</string>
+    <string name="nfcauth_username_label">Username</string>
+    <string name="nfcauth_password_label">Password</string>
+    <string name="nfcauth_connect_btn">Connect</string>
+    <string name="nfc_maximum_security_btn">Maximum security</string>
+    <string name="nfc_medium_security_btn">Medium security</string>
+    <string name="nfc_minimum_security_btn">Minimum security</string>
 </resources>

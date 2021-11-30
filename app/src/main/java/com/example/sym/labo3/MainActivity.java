@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnNfc.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NFCActivity.class);
+            Intent intent = new Intent(this, NFCAuthActivity.class);
             startActivity(intent);
         });
     }
