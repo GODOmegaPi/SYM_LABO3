@@ -7,4 +7,8 @@
     <string name="nfc_text_password">Password</string>
     <string name="nfc_btn_connect">Connect</string>
     <string name="qrcode_text_decoded">...</string>
+    <string name="beacon_bluetooth">bluetooth</string>
+    <string name="beacon_uuid">UUID</string>
+    <string name="beacon_major_minor">Major Minor</string>
+    <string name="beacon_rssi">RSSI</string>
 </resources>

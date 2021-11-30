@@ -9,6 +9,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
@@ -17,16 +19,19 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IBeaconActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 200;
 
-    private RecyclerView ibeaconsList;
-    private Collection<String> beaconsList;
+    private ListView ibeaconsList;
+    private List<Beacon> beaconsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +43,22 @@ public class IBeaconActivity extends AppCompatActivity {
             Permissions.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
-        ibeaconsList = findViewById(R.id.ibeacon_beacons_list);
         beaconsList = new ArrayList<>();
+        ibeaconsList = findViewById(R.id.ibeacon_beacons_list);
+        ibeaconsList.setAdapter(new BeaconAdapter(this, beaconsList));
 
         BeaconManager bm = BeaconManager.getInstanceForApplication(this);
-         bm.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
+        bm.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         Region r = new Region("all-beacons-region", null, null, null);
         bm.getRegionViewModel(r).getRangedBeacons().observe(this, monitoringObserver);
         bm.startRangingBeacons(r);
     }
 
     Observer monitoringObserver = (Observer<Collection<Beacon>>) beacons -> {
-        Log.d("beacon", "Ranged: " + beacons.size() + " beacons");
+        beaconsList.clear();
         for (Beacon beacon : beacons) {
-            beaconsList.add(beacon.getBluetoothAddress() + "\n"
-                    + beacon.getParserIdentifier() + "\n"
-                    + beacon.getRssi());
-            Log.d(" ", "$beacon about " + beacon.getDistance() + " meters away");
+            beaconsList.add(beacon);
+            ((BaseAdapter) ibeaconsList.getAdapter()).notifyDataSetChanged();
         }
     };
 

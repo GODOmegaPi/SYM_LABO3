@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".IBeaconActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/ibeacon_beacons_list"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
