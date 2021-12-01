@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 public class NFCActivity extends AppCompatActivity {
 
-    public static final String MIME_TEXT_PLAIN = "text/plain";
-    private String username;
-    private String password;
+    private final String TAG = this.getClass().getSimpleName();
+    private static final String MIME_TEXT_PLAIN = "text/plain";
+
     private NfcAdapter mNfcAdapter;
     private AuthLevel authLevel;
 
@@ -31,14 +31,7 @@ public class NFCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
-            username = bundle.getString("username");
-            password = bundle.getString("password");
-        }
-
         authLevel = new AuthLevel();
-        Log.d("auth", String.format("username: %s, password: %s", username, password));
 
         maxSecurity = findViewById(R.id.nfc_maximum_security_btn);
         maxSecurity.setOnClickListener(view -> {
@@ -90,7 +83,7 @@ public class NFCActivity extends AppCompatActivity {
                 authLevel.resetAuthLevelValue();
 
             } else {
-                Log.d("test", "Wrong mime type: " + type);
+                Log.d(TAG, "Wrong mime type: " + type);
             }
         } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -129,11 +122,11 @@ public class NFCActivity extends AppCompatActivity {
         // On souhaite être notifié uniquement pour les TAG au format NDEF
         filters[0] = new IntentFilter();
         filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        filters[0].addCategory(Intent.CATEGORY_DEFAULT);
+        //filters[0].addCategory(Intent.CATEGORY_DEFAULT);
         try {
             filters[0].addDataType(MIME_TEXT_PLAIN);
         } catch (IntentFilter.MalformedMimeTypeException e) {
-            Log.e("test", "MalformedMimeTypeException", e);
+            Log.e(TAG, "MalformedMimeTypeException", e);
         }
 
         mNfcAdapter.enableForegroundDispatch(this, pendingIntent, filters, techList);

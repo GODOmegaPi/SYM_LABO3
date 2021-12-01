@@ -8,11 +8,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
     private final String TAG = this.getClass().getSimpleName();
+    private final List<String> results = new ArrayList<>();
 
     @Override
     protected String doInBackground(Tag... params) {
@@ -30,7 +34,7 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         for (NdefRecord ndefRecord : records) {
             if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
                 try {
-                    return readText(ndefRecord);
+                    results.add(readText(ndefRecord));
                 } catch (UnsupportedEncodingException e) {
                     Log.e(TAG, "Unsupported Encoding", e);
                 }
@@ -59,7 +63,8 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         // Get the Language Code
         int languageCodeLength = payload[0] & 0063;
 
-        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+        String languageCode = new String(payload, 1, languageCodeLength, StandardCharsets.UTF_8);
+        Log.d(TAG, languageCode);
         // e.g. "en"
 
         // Get the Text
@@ -68,8 +73,10 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if (result != null) {
-            Log.d(TAG, result);
+        if (results.size() > 0) {
+            for (String r : results) {
+                Log.d(TAG, r);
+            }
         }
     }
 }
