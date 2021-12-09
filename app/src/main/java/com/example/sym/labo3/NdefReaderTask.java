@@ -63,8 +63,8 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         // Get the Language Code
         int languageCodeLength = payload[0] & 0063;
 
-        String languageCode = new String(payload, 1, languageCodeLength, StandardCharsets.UTF_8);
-        Log.d(TAG, languageCode);
+        // TODO delete or use it
+        // String languageCode = new String(payload, 1, languageCodeLength, StandardCharsets.UTF_8);
         // e.g. "en"
 
         // Get the Text
