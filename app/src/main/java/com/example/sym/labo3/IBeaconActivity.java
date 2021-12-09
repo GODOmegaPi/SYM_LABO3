@@ -56,10 +56,8 @@ public class IBeaconActivity extends AppCompatActivity {
 
     Observer monitoringObserver = (Observer<Collection<Beacon>>) beacons -> {
         beaconsList.clear();
-        for (Beacon beacon : beacons) {
-            beaconsList.add(beacon);
-            ((BaseAdapter) ibeaconsList.getAdapter()).notifyDataSetChanged();
-        }
+        beaconsList.addAll(beacons);
+        ((BaseAdapter) ibeaconsList.getAdapter()).notifyDataSetChanged();
     };
 
     @Override

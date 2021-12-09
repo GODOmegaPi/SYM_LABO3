@@ -2,20 +2,30 @@ package com.example.sym.labo3;
 
 import android.content.Context;
 import android.os.Handler;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.time.format.ResolverStyle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class AuthLevel {
+
+    public static final List<String> NFC_MESSAGES = Arrays.asList("test", "1 2 3 4", "é è ê ë ē", "♤ ♡ ♢ ♧");
 
     private static final int TIME_BEFORE_AUTH_LEVEL_DECREASE = 5000;
     private static final int MAX_AUTH_LEVEL_VALUE = 10;
     private static final int MIN_AUTH_LEVEL_VALUE = 0;
 
     private final Timer timer;
-    private final Handler handler = new Handler();
+    private final Handler handler;
+    private final TextView securityLevel;
 
     private int authLevelValue;
 
@@ -35,10 +45,12 @@ public class AuthLevel {
         }
     }
 
-    public AuthLevel() {
+    public AuthLevel(Handler handler, TextView securityLevel) {
         authLevelValue = MAX_AUTH_LEVEL_VALUE;
         timer = new Timer();
         timer.schedule(createTimerTask(), TIME_BEFORE_AUTH_LEVEL_DECREASE, TIME_BEFORE_AUTH_LEVEL_DECREASE);
+        this.handler = handler;
+        this.securityLevel = securityLevel;
     }
 
     public void resetAuthLevelValue() {
@@ -52,10 +64,11 @@ public class AuthLevel {
     private TimerTask createTimerTask() {
         return new TimerTask() {
             public void run() {
+                if (authLevelValue > MIN_AUTH_LEVEL_VALUE) {
+                    authLevelValue--;
+                }
                 handler.post(() -> {
-                    if (authLevelValue > MIN_AUTH_LEVEL_VALUE) {
-                        authLevelValue--;
-                    }
+                    securityLevel.setText(String.format("Security lvl: %d/%d", authLevelValue, MAX_AUTH_LEVEL_VALUE));
                 });
             }
         };

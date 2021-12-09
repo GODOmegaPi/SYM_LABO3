@@ -9,10 +9,14 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class NFCActivity extends AppCompatActivity {
 
@@ -22,16 +26,21 @@ public class NFCActivity extends AppCompatActivity {
     private NfcAdapter mNfcAdapter;
     private AuthLevel authLevel;
 
+    private TextView securityLevel;
     private Button maxSecurity;
     private Button medSecurity;
     private Button minSecurity;
+
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
 
-        authLevel = new AuthLevel();
+        handler = new Handler(getMainLooper());
+        securityLevel = findViewById(R.id.nfc_security_level);
+        authLevel = new AuthLevel(handler, securityLevel);
 
         maxSecurity = findViewById(R.id.nfc_maximum_security_btn);
         maxSecurity.setOnClickListener(view -> {
@@ -79,9 +88,11 @@ public class NFCActivity extends AppCompatActivity {
             if (MIME_TEXT_PLAIN.equals(type)) {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefReaderTask().execute(tag);
-                authLevel.resetAuthLevelValue();
-
+                new NdefReaderTask(results -> {
+                    if(results.equals(AuthLevel.NFC_MESSAGES)) {
+                        authLevel.resetAuthLevelValue();
+                    }
+                }).execute(tag);
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -92,8 +103,11 @@ public class NFCActivity extends AppCompatActivity {
 
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    new NdefReaderTask().execute(tag);
-                    authLevel.resetAuthLevelValue();
+                    new NdefReaderTask(results -> {
+                        if(results.equals(AuthLevel.NFC_MESSAGES)) {
+                            authLevel.resetAuthLevelValue();
+                        }
+                    }).execute(tag);
                     break;
                 }
             }
@@ -122,7 +136,7 @@ public class NFCActivity extends AppCompatActivity {
         // On souhaite être notifié uniquement pour les TAG au format NDEF
         filters[0] = new IntentFilter();
         filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        //filters[0].addCategory(Intent.CATEGORY_DEFAULT);
+
         try {
             filters[0].addDataType(MIME_TEXT_PLAIN);
         } catch (IntentFilter.MalformedMimeTypeException e) {

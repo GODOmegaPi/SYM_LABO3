@@ -5,6 +5,7 @@ import android.nfc.NdefRecord;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
+import android.telecom.Call;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -13,10 +14,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import kotlin.jvm.internal.Lambda;
+
 public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
     private final String TAG = this.getClass().getSimpleName();
     private final List<String> results = new ArrayList<>();
+    private final Callback callback;
+
+    public NdefReaderTask(Callback callback) {
+        this.callback = callback;
+    }
 
     @Override
     protected String doInBackground(Tag... params) {
@@ -63,10 +71,6 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         // Get the Language Code
         int languageCodeLength = payload[0] & 0063;
 
-        // TODO delete or use it
-        // String languageCode = new String(payload, 1, languageCodeLength, StandardCharsets.UTF_8);
-        // e.g. "en"
-
         // Get the Text
         return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
     }
@@ -74,9 +78,7 @@ public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (results.size() > 0) {
-            for (String r : results) {
-                Log.d(TAG, r);
-            }
+            callback.execute(results);
         }
     }
 }
