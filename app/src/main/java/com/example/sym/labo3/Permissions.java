@@ -15,12 +15,9 @@ import java.util.Map;
 
 /**
  * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
- * TODO description
+ * Classe permettant de demander et vérifier qu'un permission à bien été donnée par l'utilisateur
  */
 public class Permissions {
-
-    // TODO à supprimer ?
-    private static Map<Integer, Context> requesters = new HashMap<>();
 
     public static boolean hasPermission(Context context, String permission) {
         return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;

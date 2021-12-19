@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
- * TODO description
+ * Adaptater permettant d'afficher les items de types beacons dans une viewlist
  */
 public class BeaconAdapter extends BaseAdapter {
     Context context;

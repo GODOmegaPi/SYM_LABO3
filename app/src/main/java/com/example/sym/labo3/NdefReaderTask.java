@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
- * TODO
+ * Classe permettant de décoder de manière asynchrone les informations d'un tag NFC
  */
 public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
