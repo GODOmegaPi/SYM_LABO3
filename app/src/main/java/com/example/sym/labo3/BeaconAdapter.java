@@ -13,6 +13,11 @@ import org.altbeacon.beacon.Beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * TODO description
+ */
 public class BeaconAdapter extends BaseAdapter {
     Context context;
     List<Beacon> beacons;

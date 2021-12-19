@@ -18,6 +18,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Classe permettant de gérer le niveau de sécurité pour la NFC activity
+ */
 public class NFCActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getSimpleName();

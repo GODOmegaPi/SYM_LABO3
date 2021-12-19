@@ -12,8 +12,14 @@ import androidx.core.content.ContextCompat;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * TODO description
+ */
 public class Permissions {
 
+    // TODO à supprimer ?
     private static Map<Integer, Context> requesters = new HashMap<>();
 
     public static boolean hasPermission(Context context, String permission) {

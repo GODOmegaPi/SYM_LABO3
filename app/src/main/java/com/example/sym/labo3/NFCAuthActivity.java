@@ -19,6 +19,10 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Activity de login pour la partie NFC
+ */
 public class NFCAuthActivity extends AppCompatActivity {
 
     private final String SECRET_USERNAME = "root";

@@ -5,17 +5,17 @@ import android.nfc.NdefRecord;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
-import android.telecom.Call;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import kotlin.jvm.internal.Lambda;
-
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * TODO
+ */
 public class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
     private final String TAG = this.getClass().getSimpleName();

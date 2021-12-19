@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Activity principale contenant un menu pour se diriger vers les divers activities de l'application
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button btnQRCode;

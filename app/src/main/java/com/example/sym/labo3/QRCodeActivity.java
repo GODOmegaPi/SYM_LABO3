@@ -26,8 +26,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Activity pour le test de lecture de codebar et qrcode
+ */
 public class QRCodeActivity extends AppCompatActivity {
-
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 200;
     private DecoratedBarcodeView qrScanner;
     private TextView decoded;
@@ -76,7 +79,6 @@ public class QRCodeActivity extends AppCompatActivity {
         super.onResume();
         qrScanner.resume();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -93,9 +95,10 @@ public class QRCodeActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getApplicationContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                // TODO vérifier que fonctionne toujours: string -> R.string...
+                Toast.makeText(getApplicationContext(), R.string.permission_granted, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.permission_denied, Toast.LENGTH_SHORT).show();
             }
         }
     }

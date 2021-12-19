@@ -26,9 +26,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Activity pour la partie IBeacon
+ */
 public class IBeaconActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 200;
+    private static final String BEACON_LAYOUT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
 
     private ListView ibeaconsList;
     private List<Beacon> beaconsList;
@@ -48,7 +53,7 @@ public class IBeaconActivity extends AppCompatActivity {
         ibeaconsList.setAdapter(new BeaconAdapter(this, beaconsList));
 
         BeaconManager bm = BeaconManager.getInstanceForApplication(this);
-        bm.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
+        bm.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BEACON_LAYOUT));
         Region r = new Region("all-beacons-region", null, null, null);
         bm.getRegionViewModel(r).getRangedBeacons().observe(this, monitoringObserver);
         bm.startRangingBeacons(r);

@@ -1,20 +1,20 @@
 package com.example.sym.labo3;
 
-import android.content.Context;
 import android.os.Handler;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
-import java.time.format.ResolverStyle;
-import java.util.ArrayList;
+
+
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author  Eric Bousbaa & Ilias Goujgali & Guillaume Laubscher
+ * Classe permettant de gérer le niveau de sécurité pour la NFC activity
+ */
 public class AuthLevel {
 
     public static final List<String> NFC_MESSAGES = Arrays.asList("test", "1 2 3 4", "é è ê ë ē", "♤ ♡ ♢ ♧");
